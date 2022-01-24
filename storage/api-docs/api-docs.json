@@ -1,0 +1,44 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel api",
+        "description": "Example for laravel api",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api",
+            "description": "Developer server"
+        },
+        {
+            "url": "http://example-domain/api",
+            "description": "Production server"
+        }
+    ],
+    "paths": {
+        "/blogs": {
+            "get": {
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "Get all blogs",
+                "description": "Get all blogs",
+                "operationId": "4a1314914d411e1ff9c0c31c6a20f8a2",
+                "responses": {
+                    "200": {
+                        "description": "Get blog success"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Blog",
+            "description": "Everything about blogs"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
