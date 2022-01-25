@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedController;
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\BlogController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', [AuthenticatedController::class, 'login']);
+
+Route::post('forgot-password', [PasswordResetLinkController::class, 'sendResetLink']);
+
+Route::post('reset-password', [NewPasswordController::class, 'update']);
 
 Route::get('blogs', [BlogController::class, 'index']);
