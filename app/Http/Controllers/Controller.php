@@ -6,18 +6,6 @@
  *  title="Laravel api",
  *  description="Example for laravel api"
  * )
- * @OA\Server(
- *  url="http://localhost/api",
- *  description="Developer server"
- * )
- * @OA\Server(
- *  url="http://example-domain/api",
- *  description="Production server"
- * )
- * @OA\Tag(
- *  name="Blog",
- *  description="Everything about blogs"
- * )
  */
 namespace App\Http\Controllers;
 

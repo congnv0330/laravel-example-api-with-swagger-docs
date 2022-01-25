@@ -5,25 +5,15 @@
         "description": "Example for laravel api",
         "version": "1.0"
     },
-    "servers": [
-        {
-            "url": "http://localhost/api",
-            "description": "Developer server"
-        },
-        {
-            "url": "http://example-domain/api",
-            "description": "Production server"
-        }
-    ],
     "paths": {
-        "/blogs": {
+        "/api/blogs": {
             "get": {
                 "tags": [
                     "Blog"
                 ],
                 "summary": "Get all blogs",
                 "description": "Get all blogs",
-                "operationId": "4a1314914d411e1ff9c0c31c6a20f8a2",
+                "operationId": "9819e5802278e060898795fe3c919599",
                 "responses": {
                     "200": {
                         "description": "Get blog success"
@@ -32,12 +22,6 @@
             }
         }
     },
-    "tags": [
-        {
-            "name": "Blog",
-            "description": "Everything about blogs"
-        }
-    ],
     "security": [
         []
     ]
