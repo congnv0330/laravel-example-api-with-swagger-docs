@@ -46,6 +46,6 @@ class AuthenticatedController extends Controller
      */
     public function login(LoginRequest $request): JsonResponse
     {
-        return $this->service->authenticate($request);
+        return $this->service->login($request);
     }
 }

@@ -27,7 +27,7 @@ class AuthenticatedService
      * @param LoginRequest $request
      * @return JsonResponse
      */
-    public function authenticate(LoginRequest $request): JsonResponse
+    public function login(LoginRequest $request): JsonResponse
     {
         $this->ensureIsNotRateLimited($request);
 
