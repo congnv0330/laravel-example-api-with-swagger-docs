@@ -9,16 +9,16 @@ use Illuminate\Http\Request;
 class BlogController extends Controller
 {
     /**
-     * @OA\Get(
-     *  path="/api/blogs",
-     *  summary="Get all blogs",
-     *  description="Get all blogs",
-     *  tags={"Blog"},
-     *  @OA\Response(
-     *    response=200,
-     *    description="Get blog success"
+     *  @OA\Get(
+     *      path="/api/blogs",
+     *      summary="Get all blogs",
+     *      description="Get all blogs",
+     *      tags={"Blog"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Get blog success"
+     *      )
      *  )
-     * )
      */
     public function index(): PaginationCollection
     {

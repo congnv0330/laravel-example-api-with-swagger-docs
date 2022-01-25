@@ -1,11 +1,11 @@
 <?php
 
  /**
- * @OA\Info(
- *  version="1.0",
- *  title="Laravel api",
- *  description="Example for laravel api"
- * )
+ *  @OA\Info(
+ *      version="1.0",
+ *      title="Laravel api",
+ *      description="Example for laravel api"
+ *  )
  */
 namespace App\Http\Controllers;
 
