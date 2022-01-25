@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
+use Illuminate\Auth\Events\Lockout;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\RateLimiter;
@@ -72,6 +73,8 @@ class AuthenticatedService
         if (!RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
             return;
         }
+
+        event(new Lockout($request));
 
         $seconds = RateLimiter::availableIn($this->throttleKey($request));
 
