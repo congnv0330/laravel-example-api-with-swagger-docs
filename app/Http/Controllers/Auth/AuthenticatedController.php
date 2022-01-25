@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Services\AuthenticatedService;
+use Illuminate\Http\JsonResponse;
 
 class AuthenticatedController extends Controller
 {
@@ -43,14 +44,8 @@ class AuthenticatedController extends Controller
      *      )
      *  )
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
-        $user = $this->service->authenticate($request);
-
-        $token = $user->createToken($user->id . '-' . date('YmdHis'));
-
-        return response()->json([
-            'token' => $token->plainTextToken
-        ]);
+        return $this->service->authenticate($request);
     }
 }

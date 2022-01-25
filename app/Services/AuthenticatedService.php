@@ -5,9 +5,11 @@ namespace App\Services;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Laravel\Sanctum\NewAccessToken;
 
 class AuthenticatedService
 {
@@ -22,9 +24,9 @@ class AuthenticatedService
      * Authenticate request
      *
      * @param LoginRequest $request
-     * @return User
+     * @return JsonResponse
      */
-    public function authenticate(LoginRequest $request): User
+    public function authenticate(LoginRequest $request): JsonResponse
     {
         $this->ensureIsNotRateLimited($request);
 
@@ -40,7 +42,22 @@ class AuthenticatedService
 
         RateLimiter::clear($this->throttleKey($request));
 
-        return $user;
+        $token = $this->createToken($user);
+
+        return response()->json([
+            'token' => $token->plainTextToken
+        ]);
+    }
+
+    /**
+     * Generate access token
+     *
+     * @param User $user
+     * @return NewAccessToken
+     */
+    protected function createToken(User $user): NewAccessToken
+    {
+        return $user->createToken($user->id . '-' . date('YmdHis'));
     }
 
     /**
@@ -50,7 +67,7 @@ class AuthenticatedService
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function ensureIsNotRateLimited(LoginRequest $request)
+    protected function ensureIsNotRateLimited(LoginRequest $request)
     {
         if (!RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
             return;
@@ -71,7 +88,7 @@ class AuthenticatedService
      *
      * @return string
      */
-    public function throttleKey(LoginRequest $request): string
+    protected function throttleKey(LoginRequest $request): string
     {
         return Str::lower($request->getUsername()) . '|' . $request->ip();
     }
