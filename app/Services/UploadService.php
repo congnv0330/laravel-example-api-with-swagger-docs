@@ -15,7 +15,8 @@ class UploadService
         );
 
         return response()->json([
-            'path' => Storage::url($path)
+            'path' => $path,
+            'url' => Storage::url($path)
         ]);
     }
 }
