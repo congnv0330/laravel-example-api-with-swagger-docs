@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,7 @@ Route::post('forgot-password', [PasswordResetLinkController::class, 'sendResetLi
 Route::post('reset-password', [NewPasswordController::class, 'update']);
 
 Route::get('blogs', [BlogController::class, 'index']);
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('upload/image', [UploadController::class, 'uploadImage']);
+});

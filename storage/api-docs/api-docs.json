@@ -190,6 +190,69 @@
                     }
                 }
             }
+        },
+        "/api/upload/image": {
+            "post": {
+                "tags": [
+                    "Utilities"
+                ],
+                "summary": "Upload file image",
+                "description": "Upload file image.",
+                "operationId": "2a2704d57684ea56e6401556b63e3b28",
+                "requestBody": {
+                    "description": "Parameters",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Upload success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "path": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "in": "header",
+                "scheme": "bearer"
+            }
         }
     },
     "security": [

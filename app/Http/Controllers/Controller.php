@@ -1,11 +1,17 @@
 <?php
 
  /**
- *  @OA\Info(
- *      version="1.0",
- *      title="Laravel api",
- *      description="Example for laravel api"
- *  )
+  * @OA\Info(
+  *     version="1.0",
+  *     title="Laravel api",
+  *     description="Example for laravel api"
+  *  )
+  * @OA\SecurityScheme(
+  *     securityScheme="bearerAuth",
+  *     type="http",
+  *     scheme="bearer",
+  *     in="header"
+  * )
  */
 namespace App\Http\Controllers;
 
