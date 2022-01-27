@@ -15,7 +15,7 @@ class CreateSlugsTable extends Migration
     {
         Schema::create('slugs', function (Blueprint $table) {
             $table->id();
-            $table->string('value', 510);
+            $table->string('value', 510)->unique();
             $table->unsignedBigInteger('reference_id');
             $table->string('reference_type');
         });
