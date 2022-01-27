@@ -53,8 +53,8 @@ class AuthenticatedController extends Controller
     /**
      *  @OA\Get(
      *      path="/api/me",
-     *      summary="Login",
-     *      description="Authenticate the request's credentials.",
+     *      summary="Get auth user",
+     *      description="Get authenticate user base on token.",
      *      tags={"Authentication"},
      *      security={{"bearerAuth":{}}},
      *      @OA\Response(
