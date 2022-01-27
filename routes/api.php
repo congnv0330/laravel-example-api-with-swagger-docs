@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,10 +25,17 @@ Route::post('forgot-password', [PasswordResetLinkController::class, 'sendResetLi
 
 Route::post('reset-password', [NewPasswordController::class, 'update']);
 
+Route::get('tag/{tag}', [TagController::class, 'show']);
+Route::get('tags', [TagController::class, 'index']);
+
 Route::get('blogs', [BlogController::class, 'index']);
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('me', [AuthenticatedController::class, 'me']);
 
     Route::post('upload/image', [UploadController::class, 'uploadImage']);
+
+    Route::delete('tag/{tag}', [TagController::class, 'destroy']);
+    Route::put('tag/{tag}', [TagController::class, 'update']);
+    Route::post('tag', [TagController::class, 'store']);
 });

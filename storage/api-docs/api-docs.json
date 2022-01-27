@@ -66,8 +66,8 @@
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Login",
-                "description": "Authenticate the request's credentials.",
+                "summary": "Get auth user",
+                "description": "Get authenticate user base on token.",
                 "operationId": "373fc342ab7ad8f71cfdf15116c536b8",
                 "responses": {
                     "200": {
@@ -241,6 +241,195 @@
                 }
             }
         },
+        "/api/tags": {
+            "get": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Get all tags",
+                "description": "Get all tags",
+                "operationId": "4d0f4baf9e6fa992c0d85fbf140ebf17",
+                "responses": {
+                    "200": {
+                        "description": "Get tags success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TagResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationCollection"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tag/{id}": {
+            "get": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Get tag",
+                "description": "Get tag",
+                "operationId": "bf36800a0c116b30e666f473883fce5a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get tag success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TagResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tag does not exist"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Update tag",
+                "description": "Update tag by id",
+                "operationId": "bdcf35b6b68edbf49f01545fe2f3ab86",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TagRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update tag success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TagResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Tag does not exist"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Delete tag",
+                "description": "Delete tag.",
+                "operationId": "f46dcf430dd2d42f4b5e98b8aa445bde",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete tag success"
+                    },
+                    "404": {
+                        "description": "Tag does not exist"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tag": {
+            "post": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Create tag",
+                "description": "Create tag.",
+                "operationId": "0c7955aa4dbd61194103166fef10404d",
+                "requestBody": {
+                    "description": "Parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TagRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create tag success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TagResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/upload/image": {
             "post": {
                 "tags": [
@@ -297,6 +486,79 @@
         }
     },
     "components": {
+        "schemas": {
+            "TagRequest": {
+                "title": "Tag body request",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "example"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "",
+                        "nullable": "true"
+                    },
+                    "sort_order": {
+                        "type": "integer",
+                        "minimum": "1",
+                        "example": "1",
+                        "nullable": "true"
+                    }
+                },
+                "type": "object"
+            },
+            "PaginationCollection": {
+                "title": "Paginate json response",
+                "properties": {
+                    "current_page": {
+                        "type": "integer"
+                    },
+                    "from": {
+                        "type": "integer"
+                    },
+                    "last_page": {
+                        "type": "integer"
+                    },
+                    "per_page": {
+                        "type": "integer"
+                    },
+                    "to": {
+                        "type": "integer"
+                    },
+                    "total": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "TagResource": {
+                "title": "Tag json response",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "sort_order": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
