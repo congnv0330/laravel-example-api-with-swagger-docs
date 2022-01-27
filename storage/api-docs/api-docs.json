@@ -234,9 +234,70 @@
                 "summary": "Get all blogs",
                 "description": "Get all blogs",
                 "operationId": "9819e5802278e060898795fe3c919599",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Default page 1",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Search",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "0 - DRAFT, 1 - PUBLISHED, 2 - ARCHIVED. Default 1",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "sort[0][]",
+                        "in": "query",
+                        "description": "Multi sort",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "id",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Get blog success"
+                        "description": "Get blogs success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/BlogResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationCollection"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -538,6 +599,41 @@
                         "minimum": "1",
                         "example": "1",
                         "nullable": "true"
+                    }
+                },
+                "type": "object"
+            },
+            "BlogResource": {
+                "title": "Blog json response",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "thumbnail_image": {
+                        "type": "string"
+                    },
+                    "cover_image": {
+                        "type": "string"
+                    },
+                    "sort_order": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
                     }
                 },
                 "type": "object"

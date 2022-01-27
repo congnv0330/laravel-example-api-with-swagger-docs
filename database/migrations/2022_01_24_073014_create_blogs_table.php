@@ -20,6 +20,7 @@ class CreateBlogsTable extends Migration
             $table->longText('content');
             $table->text('thumbnail_image')->nullable();
             $table->text('cover_image')->nullable();
+            $table->unsignedBigInteger('sort_order')->default(1);
             $table->unsignedTinyInteger('status')->default(0);
             $table->unsignedBigInteger('creator_id')->nullable();
             $table->unsignedBigInteger('updater_id')->nullable();
