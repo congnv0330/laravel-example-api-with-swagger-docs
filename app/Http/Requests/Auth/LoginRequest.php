@@ -7,20 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class LoginRequest extends FormRequest
 {
     /**
-     * Username key
-     *
-     * @var string
-     */
-    public string $usernameKey = 'email';
-
-    /**
-     * Password key
-     *
-     * @var string
-     */
-    public string $passwordKey = 'password';
-
-    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -38,18 +24,18 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            $this->usernameKey => ['required', 'string'],
-            $this->passwordKey => ['required', 'string']
+            'email' => ['required', 'string'],
+            'password' => ['required', 'string']
         ];
     }
 
     public function getUsername(): string
     {
-        return $this->post($this->usernameKey);
+        return $this->post('email');
     }
 
     public function getPassword(): string
     {
-        return $this->post($this->passwordKey);
+        return $this->post('password');
     }
 }

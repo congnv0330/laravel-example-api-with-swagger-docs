@@ -22,19 +22,21 @@ class AuthenticatedService
      */
     public function login(LoginRequest $request): JsonResponse
     {
-        $this->ensureIsNotRateLimited($request);
+        $throttleKey = $this->throttleKey($request);
 
-        $user = User::where($request->usernameKey, $request->getUsername())->first();
+        $this->ensureIsNotRateLimited($request, $throttleKey);
+
+        $user = User::where('email', $request->getUsername())->first();
 
         if (!$user || !Hash::check($request->getPassword(), $user->password)) {
-            RateLimiter::hit($this->throttleKey($request));
+            RateLimiter::hit($throttleKey);
 
             throw ValidationException::withMessages([
-                'username' => __('auth.failed')
+                'email' => __('auth.failed')
             ]);
         }
 
-        RateLimiter::clear($this->throttleKey($request));
+        RateLimiter::clear($throttleKey);
 
         $token = $this->createToken($user);
 
@@ -61,15 +63,15 @@ class AuthenticatedService
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function ensureIsNotRateLimited(LoginRequest $request)
+    protected function ensureIsNotRateLimited(LoginRequest $request, string $throttleKey)
     {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
+        if (!RateLimiter::tooManyAttempts($throttleKey, 5)) {
             return;
         }
 
         event(new Lockout($request));
 
-        $seconds = RateLimiter::availableIn($this->throttleKey($request));
+        $seconds = RateLimiter::availableIn($throttleKey);
 
         throw ValidationException::withMessages([
             'email' => trans('auth.throttle', [

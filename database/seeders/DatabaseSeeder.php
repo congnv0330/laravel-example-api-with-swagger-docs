@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Enums\StatusEnum;
+use App\Models\Blog;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -15,12 +18,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $users = \App\Models\User::factory(5)->create();
-        $tags = \App\Models\Tag::factory(15)->create();
+        $users = User::factory(5)->create();
+        $tags = Tag::factory(15)->create();
 
         $status = StatusEnum::cases();
 
-        \App\Models\Blog::factory(100)
+        Blog::factory(100)
             ->state(new Sequence(
                 fn ($sequence) => [
                     'status' => $status[array_rand($status)]->value,
@@ -29,6 +32,6 @@ class DatabaseSeeder extends Seeder
                 ]
             ))
             ->create()
-            ->each(fn (\App\Models\Blog $blog) => $blog->tags()->saveMany($tags->random(rand(1, 5))));
+            ->each(fn (Blog $blog) => $blog->tags()->saveMany($tags->random(rand(1, 5))));
     }
 }
