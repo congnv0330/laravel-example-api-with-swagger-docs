@@ -83,6 +83,7 @@ window.onload = function() {
 
     requestInterceptor: function(request) {
       request.headers['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
+      request.headers['X-Requested-With'] = 'XMLHttpRequest';
       return request;
     },
 
