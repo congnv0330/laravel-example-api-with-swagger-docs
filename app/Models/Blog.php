@@ -44,12 +44,14 @@ class Blog extends Model implements Searchable
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)
+            ->select(['id', 'name', 'email']);
     }
 
     public function updater(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)
+            ->select(['id', 'name', 'email']);
     }
 
     public function tags(): BelongsToMany

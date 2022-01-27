@@ -27,7 +27,12 @@ class TagService
 
     public function blogs(Tag $tag): BlogCollection
     {
-        $blogs = $tag->blogs()->with('slug');
+        $blogs = $tag->blogs()->with([
+            'slug',
+            'creator',
+            'updater',
+            'tags' => fn ($query) => $query->with('slug')
+        ]);
 
         $blogs = $blogs->filter([
             \App\QueryFilters\SearchFilter::class,

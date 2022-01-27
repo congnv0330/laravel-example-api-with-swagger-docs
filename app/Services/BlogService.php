@@ -11,7 +11,13 @@ class BlogService
 {
     public function index(): BlogCollection
     {
-        $blogs = Blog::select(Blog::columnsNoContent)->with('slug');
+        $blogs = Blog::select(Blog::columnsNoContent)
+            ->with([
+                'slug',
+                'creator',
+                'updater',
+                'tags' => fn ($query) => $query->with('slug')
+            ]);
 
         $blogs = $blogs->filter([
             \App\QueryFilters\SearchFilter::class,

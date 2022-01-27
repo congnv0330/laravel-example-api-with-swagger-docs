@@ -15,6 +15,25 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *      @OA\Property(property="thumbnail_image", type="string"),
  *      @OA\Property(property="cover_image", type="string"),
  *      @OA\Property(property="sort_order", type="integer"),
+ *      @OA\Property(
+ *          property="creator",
+ *          type="object",
+ *          @OA\Property(property="id", type="integer"),
+ *          @OA\Property(property="name", type="string"),
+ *          @OA\Property(property="email", type="string")
+ *      ),
+ *      @OA\Property(
+ *          property="updater",
+ *          type="object",
+ *          @OA\Property(property="id", type="integer"),
+ *          @OA\Property(property="name", type="string"),
+ *          @OA\Property(property="email", type="string")
+ *      ),
+ *      @OA\Property(
+ *          property="tags",
+ *          type="array",
+ *          @OA\Items(ref="#/components/schemas/TagResource")
+ *      ),
  *      @OA\Property(property="created_at", type="string", format="date-time"),
  *      @OA\Property(property="updated_at", type="string", format="date-time")
  * )
@@ -37,6 +56,9 @@ class BlogResource extends JsonResource
             'thumbnail_image' => $this->thumbnail_image,
             'cover_image' => $this->cover_image,
             'sort_order' => $this->sort_order,
+            'creator' => $this->creator,
+            'updater' => $this->updater,
+            'tags' => new TagCollection($this->tags),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
