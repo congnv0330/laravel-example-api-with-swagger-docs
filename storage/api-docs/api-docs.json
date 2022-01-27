@@ -249,6 +249,40 @@
                 "summary": "Get all tags",
                 "description": "Get all tags",
                 "operationId": "4d0f4baf9e6fa992c0d85fbf140ebf17",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Default page 1",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Search",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort[0][]",
+                        "in": "query",
+                        "description": "Multi sort",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "id",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get tags success",

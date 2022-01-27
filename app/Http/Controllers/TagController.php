@@ -25,6 +25,29 @@ class TagController extends Controller
      *      summary="Get all tags",
      *      description="Get all tags",
      *      tags={"Tag"},
+     *      @OA\Parameter(
+     *          in="query",
+     *          name="page",
+     *          description="Default page 1",
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Parameter(
+     *          in="query",
+     *          name="q",
+     *          description="Search",
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *          in="query",
+     *          name="sort[0][]",
+     *          description="Multi sort",
+     *          @OA\Schema(
+     *              type="array",
+     *              collectionFormat="multi",
+     *              @OA\Items(type="string"),
+     *              example={"id", "desc"}
+     *          )
+     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Get tags success",

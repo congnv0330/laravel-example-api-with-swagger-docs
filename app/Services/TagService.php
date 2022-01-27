@@ -13,7 +13,14 @@ class TagService
 {
     public function index(): TagCollection
     {
-        return new TagCollection(Tag::with('slug')->paginate(10));
+        $tags = Tag::with('slug');
+
+        $tags = $tags->filter([
+            \App\QueryFilters\SearchFilter::class,
+            \App\QueryFilters\SortFilter::class
+        ]);
+
+        return new TagCollection($tags->paginate(10));
     }
 
     public function show(Tag $tag): TagResource
