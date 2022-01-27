@@ -5,6 +5,18 @@ namespace App\Http\Resources;
 use App\Http\Resources\Json\PaginatedResourceResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
+ /**
+ *  @OA\Schema(
+ *      schema="PaginationCollection",
+ *      title="Paginate json response",
+ *      @OA\Property(property="current_page", type="integer"),
+ *      @OA\Property(property="from", type="integer"),
+ *      @OA\Property(property="last_page", type="integer"),
+ *      @OA\Property(property="per_page", type="integer"),
+ *      @OA\Property(property="to", type="integer"),
+ *      @OA\Property(property="total", type="integer")
+ * )
+ */
 class PaginationCollection extends ResourceCollection
 {
     /**
