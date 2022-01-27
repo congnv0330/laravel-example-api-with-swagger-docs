@@ -13,7 +13,7 @@ trait Filterable
         array $through,
         Closure|null $callback = null
     ): Builder {
-        $pipeline =  app(Pipeline::class)
+        $pipeline = app(Pipeline::class)
             ->send($query)
             ->through($through);
 
