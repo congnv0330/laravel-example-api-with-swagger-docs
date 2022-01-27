@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Supports\Traits;
+namespace App\Supports\Model;
 
 use App\Models\Slug;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
