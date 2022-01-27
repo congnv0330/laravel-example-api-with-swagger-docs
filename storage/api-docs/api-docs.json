@@ -484,6 +484,90 @@
                 ]
             }
         },
+        "/api/tag/{id}/blogs": {
+            "get": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Get all blogs in tag",
+                "description": "Get all blogs in tag",
+                "operationId": "b22d1c9d3524c8ce2b610349b6e79339",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Default page 1",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Search",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "0 - DRAFT, 1 - PUBLISHED, 2 - ARCHIVED. Default 1",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "sort[0][]",
+                        "in": "query",
+                        "description": "Multi sort",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "id",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get blogs success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/BlogResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationCollection"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/tag": {
             "post": {
                 "tags": [

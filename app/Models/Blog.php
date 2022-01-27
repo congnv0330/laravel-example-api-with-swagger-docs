@@ -29,6 +29,19 @@ class Blog extends Model implements Searchable
         'updater_id'
     ];
 
+    public const columnsNoContent = [
+        'id',
+        'title',
+        'description',
+        'thumbnail_image',
+        'cover_image',
+        'sort_order',
+        'creator_id',
+        'updater_id',
+        'created_at',
+        'updated_at'
+    ];
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -46,6 +59,10 @@ class Blog extends Model implements Searchable
 
     public function scopeSearch(Builder $query, string $value): Builder
     {
-        return $query->whereFullText(['title', 'description', 'content'], $value);
+        return $query->whereFullText(
+            ['title', 'description', 'content'],
+            $value,
+            ['mode' => 'boolean']
+        );
     }
 }

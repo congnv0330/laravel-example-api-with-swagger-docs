@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Http\Requests\TagRequest;
+use App\Http\Resources\BlogCollection;
 use App\Http\Resources\TagCollection;
 use App\Http\Resources\TagResource;
+use App\Models\Blog;
 use App\Models\Tag;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -21,6 +23,19 @@ class TagService
         ]);
 
         return new TagCollection($tags->paginate(10));
+    }
+
+    public function blogs(Tag $tag): BlogCollection
+    {
+        $blogs = $tag->blogs()->with('slug');
+
+        $blogs = $blogs->filter([
+            \App\QueryFilters\SearchFilter::class,
+            \App\QueryFilters\SortFilter::class,
+            \App\QueryFilters\StatusFilter::class
+        ]);
+
+        return new BlogCollection($blogs->paginate(10, Blog::columnsNoContent));
     }
 
     public function show(Tag $tag): TagResource

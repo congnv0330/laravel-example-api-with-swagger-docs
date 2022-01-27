@@ -11,18 +11,7 @@ class BlogService
 {
     public function index(): BlogCollection
     {
-        $blogs = Blog::select([
-            'id',
-            'title',
-            'description',
-            'thumbnail_image',
-            'cover_image',
-            'sort_order',
-            'creator_id',
-            'updater_id',
-            'created_at',
-            'updated_at'
-        ])->with('slug');
+        $blogs = Blog::select(Blog::columnsNoContent)->with('slug');
 
         $blogs = $blogs->filter([
             \App\QueryFilters\SearchFilter::class,

@@ -25,6 +25,7 @@ Route::post('forgot-password', [PasswordResetLinkController::class, 'sendResetLi
 
 Route::post('reset-password', [NewPasswordController::class, 'update']);
 
+Route::get('tag/{tag}/blogs', [TagController::class, 'blogs']);
 Route::get('tag/{tag}', [TagController::class, 'show']);
 Route::get('tags', [TagController::class, 'index']);
 

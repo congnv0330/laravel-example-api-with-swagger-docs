@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TagRequest;
+use App\Http\Resources\BlogCollection;
 use App\Http\Resources\TagCollection;
 use App\Http\Resources\TagResource;
 use App\Models\Tag;
@@ -97,6 +98,70 @@ class TagController extends Controller
     public function show(Tag $tag): TagResource
     {
         return $this->service->show($tag);
+    }
+
+    /**
+     *  @OA\Get(
+     *      path="/api/tag/{id}/blogs",
+     *      summary="Get all blogs in tag",
+     *      description="Get all blogs in tag",
+     *      tags={"Tag"},
+     *      @OA\Parameter(
+     *          in="path",
+     *          name="id",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Parameter(
+     *          in="query",
+     *          name="page",
+     *          description="Default page 1",
+     *          @OA\Schema(type="integer"),
+     *      ),
+     *      @OA\Parameter(
+     *          in="query",
+     *          name="q",
+     *          description="Search",
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *          in="query",
+     *          name="status",
+     *          description="0 - DRAFT, 1 - PUBLISHED, 2 - ARCHIVED. Default 1",
+     *          @OA\Schema(type="integer", example=1)
+     *      ),
+     *      @OA\Parameter(
+     *          in="query",
+     *          name="sort[0][]",
+     *          description="Multi sort",
+     *          @OA\Schema(
+     *              type="array",
+     *              collectionFormat="multi",
+     *              @OA\Items(type="string"),
+     *              example={"id", "desc"}
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Get blogs success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/BlogResource")
+     *              ),
+     *              @OA\Property(
+     *                  property="meta",
+     *                  type="object",
+     *                  ref="#/components/schemas/PaginationCollection"
+     *              )
+     *          )
+     *      )
+     *  )
+     */
+    public function blogs(Tag $tag): BlogCollection
+    {
+        return $this->service->blogs($tag);
     }
 
     /**
