@@ -27,5 +27,7 @@ Route::post('reset-password', [NewPasswordController::class, 'update']);
 Route::get('blogs', [BlogController::class, 'index']);
 
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('me', [AuthenticatedController::class, 'me']);
+
     Route::post('upload/image', [UploadController::class, 'uploadImage']);
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Services\AuthenticatedService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AuthenticatedController extends Controller
 {
@@ -47,5 +48,31 @@ class AuthenticatedController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         return $this->service->login($request);
+    }
+
+    /**
+     *  @OA\Get(
+     *      path="/api/me",
+     *      summary="Login",
+     *      description="Authenticate the request's credentials.",
+     *      tags={"Authentication"},
+     *      security={{"bearerAuth":{}}},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Get user information success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="id", type="integer"),
+     *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="email", type="string"),
+     *              @OA\Property(property="email_verified_at", type="string", format="date-time"),
+     *              @OA\Property(property="created_at", type="string", format="date-time"),
+     *              @OA\Property(property="updated_at", type="string", format="date-time")
+     *          )
+     *      )
+     *  )
+     */
+    public function me(Request $request): JsonResponse
+    {
+        return response()->json($request->user());
     }
 }
