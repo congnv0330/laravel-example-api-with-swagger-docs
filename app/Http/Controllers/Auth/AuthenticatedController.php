@@ -28,7 +28,7 @@ class AuthenticatedController extends Controller
      *          @OA\JsonContent(
      *              required={"email","password"},
      *              @OA\Property(property="email", type="string", example="example@gmail.com"),
-     *              @OA\Property(property="password", type="string", example="12345")
+     *              @OA\Property(property="password", type="string", example="password")
      *          )
      *      ),
      *      @OA\Response(

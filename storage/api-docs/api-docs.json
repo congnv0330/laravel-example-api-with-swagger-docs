@@ -31,7 +31,7 @@
                                     },
                                     "password": {
                                         "type": "string",
-                                        "example": "12345"
+                                        "example": "password"
                                     }
                                 },
                                 "type": "object"

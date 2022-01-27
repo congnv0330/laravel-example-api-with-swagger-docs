@@ -5,8 +5,8 @@ namespace App\Services;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
-use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -14,13 +14,6 @@ use Laravel\Sanctum\NewAccessToken;
 
 class AuthenticatedService
 {
-    protected Hasher $hasher;
-
-    public function __construct(Hasher $hasher)
-    {
-        $this->hasher = $hasher;
-    }
-
     /**
      * Authenticate request
      *
@@ -33,7 +26,7 @@ class AuthenticatedService
 
         $user = User::where($request->usernameKey, $request->getUsername())->first();
 
-        if (!$user || !$this->hasher->check($request->getPassword(), $user->password)) {
+        if (!$user || !Hash::check($request->getPassword(), $user->password)) {
             RateLimiter::hit($this->throttleKey($request));
 
             throw ValidationException::withMessages([
@@ -58,7 +51,7 @@ class AuthenticatedService
      */
     protected function createToken(User $user): NewAccessToken
     {
-        return $user->createToken($user->id . '-' . date('YmdHis'));
+        return $user->createToken($user->id . '_' . date('YmdHis'));
     }
 
     /**
