@@ -41,7 +41,8 @@ class UploadController extends Controller
      *          response=200,
      *          description="Upload success",
      *          @OA\JsonContent(
-     *              @OA\Property(property="path", type="string")
+     *              @OA\Property(property="path", type="string"),
+     *              @OA\Property(property="url", type="string")
      *          )
      *      ),
      *      @OA\Response(
