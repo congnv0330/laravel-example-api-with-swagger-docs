@@ -174,10 +174,7 @@ class TagController extends Controller
      *      @OA\RequestBody(
      *          required=true,
      *          description="Parameters",
-     *          @OA\JsonContent(
-     *              required={"name"},
-     *              ref="#/components/schemas/TagRequest"
-     *          )
+     *          @OA\JsonContent(ref="#/components/schemas/TagRequest")
      *      ),
      *      @OA\Response(
      *          response=201,
@@ -211,10 +208,7 @@ class TagController extends Controller
      *      @OA\RequestBody(
      *          required=true,
      *          description="Parameters",
-     *          @OA\JsonContent(
-     *              required={"name"},
-     *              ref="#/components/schemas/TagRequest"
-     *          )
+     *          @OA\JsonContent(ref="#/components/schemas/TagRequest")
      *      ),
      *      @OA\Response(
      *          response=200,

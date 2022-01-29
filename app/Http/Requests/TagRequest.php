@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
  *  @OA\Schema(
  *      schema="TagRequest",
  *      title="Tag body request",
+ *      required={"name"},
  * 	    @OA\Property(property="name", type="string", example="example"),
  *      @OA\Property(property="slug", type="string", example="", nullable="true"),
  *      @OA\Property(property="sort_order", type="integer", example="1", minimum="1", nullable="true")

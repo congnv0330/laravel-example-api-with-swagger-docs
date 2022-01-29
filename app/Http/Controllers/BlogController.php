@@ -115,10 +115,7 @@ class BlogController extends Controller
      *      @OA\RequestBody(
      *          required=true,
      *          description="Parameters",
-     *          @OA\JsonContent(
-     *              required={"title", "description", "content", "tags"},
-     *              ref="#/components/schemas/BlogRequest"
-     *          )
+     *          @OA\JsonContent(ref="#/components/schemas/BlogRequest")
      *      ),
      *      @OA\Response(
      *          response=201,
@@ -152,10 +149,7 @@ class BlogController extends Controller
      *      @OA\RequestBody(
      *          required=true,
      *          description="Parameters",
-     *          @OA\JsonContent(
-     *              required={"title", "description", "content", "tags"},
-     *              ref="#/components/schemas/BlogRequest"
-     *          )
+     *          @OA\JsonContent(ref="#/components/schemas/BlogRequest")
      *      ),
      *      @OA\Response(
      *          response=200,

@@ -827,6 +827,12 @@
         "schemas": {
             "BlogRequest": {
                 "title": "Blog body request",
+                "required": [
+                    "title",
+                    "description",
+                    "content",
+                    "tags"
+                ],
                 "properties": {
                     "title": {
                         "type": "string",
@@ -882,6 +888,9 @@
             },
             "TagRequest": {
                 "title": "Tag body request",
+                "required": [
+                    "name"
+                ],
                 "properties": {
                     "name": {
                         "type": "string",

@@ -10,6 +10,7 @@ use Illuminate\Validation\Rules\Enum;
  *  @OA\Schema(
  *      schema="BlogRequest",
  *      title="Blog body request",
+ *      required={"title", "description", "content", "tags"},
  * 	    @OA\Property(property="title", type="string", example="Blog example"),
  *      @OA\Property(property="slug", type="string", example="", nullable="true"),
  *      @OA\Property(property="description", type="string", example="Blog description"),
