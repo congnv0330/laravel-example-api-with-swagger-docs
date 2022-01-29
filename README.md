@@ -7,8 +7,8 @@
 ```
 docker run --rm \
     -u "$(id -u):$(id -g)" \
-    -v $(pwd):/path/to/laravel-full-stack \
-    -w /path/to/laravel-full-stack \
+    -v $(pwd):/path/to/laravel-example-api-with-swagger-docs \
+    -w /path/to/laravel-example-api-with-swagger-docs \
     laravelsail/php81-composer:latest \
     composer install --ignore-platform-reqs
 ```
