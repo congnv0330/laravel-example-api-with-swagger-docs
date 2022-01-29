@@ -29,6 +29,7 @@ Route::get('tag/{tag}/blogs', [TagController::class, 'blogs']);
 Route::get('tag/{tag}', [TagController::class, 'show']);
 Route::get('tags', [TagController::class, 'index']);
 
+Route::get('blog/{blog}', [BlogController::class, 'show']);
 Route::get('blogs', [BlogController::class, 'index']);
 
 Route::group(['middleware' => 'auth:api'], function () {
@@ -39,4 +40,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('tag/{tag}', [TagController::class, 'destroy']);
     Route::put('tag/{tag}', [TagController::class, 'update']);
     Route::post('tag', [TagController::class, 'store']);
+
+    Route::delete('blog/{blog}', [BlogController::class, 'destroy']);
+    Route::put('blog/{blog}', [BlogController::class, 'update']);
+    Route::post('blog', [BlogController::class, 'store']);
 });

@@ -302,6 +302,162 @@
                 }
             }
         },
+        "/api/blog/{id}": {
+            "get": {
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "Get blog",
+                "description": "Get blog",
+                "operationId": "6ac9d2eb1f1ccbc64de4ae3a2bb02941",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get blog success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BlogDetailResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Blog does not exist"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "Update blog",
+                "description": "Update blog by id",
+                "operationId": "d2f1b0701a35fa9fe0a348cf31a0218b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BlogRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update blog success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BlogDetailResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Blog does not exist"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "Delete blog",
+                "description": "Delete blog.",
+                "operationId": "d108c8d131119e4b106b1e457c59ec1a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete blog success"
+                    },
+                    "404": {
+                        "description": "Blog does not exist"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/blog": {
+            "post": {
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "Create blog",
+                "description": "Create blog.",
+                "operationId": "5600c727b63d95db2095811a8e8cfa58",
+                "requestBody": {
+                    "description": "Parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BlogRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create blog success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BlogDetailResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation failed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/tags": {
             "get": {
                 "tags": [
@@ -645,6 +801,9 @@
                                     "properties": {
                                         "path": {
                                             "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
@@ -666,6 +825,61 @@
     },
     "components": {
         "schemas": {
+            "BlogRequest": {
+                "title": "Blog body request",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Blog example"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "",
+                        "nullable": "true"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Blog description"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "<p>Hello content</p>"
+                    },
+                    "thumbnail_image": {
+                        "type": "string",
+                        "example": "",
+                        "nullable": "true"
+                    },
+                    "cover_image": {
+                        "type": "string",
+                        "example": "",
+                        "nullable": "true"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": "0",
+                        "nullable": "true"
+                    },
+                    "sort_order": {
+                        "type": "integer",
+                        "minimum": "1",
+                        "example": "1",
+                        "nullable": "true"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "example": [
+                            1,
+                            2,
+                            3
+                        ]
+                    }
+                },
+                "type": "object"
+            },
             "TagRequest": {
                 "title": "Tag body request",
                 "properties": {
@@ -683,6 +897,78 @@
                         "minimum": "1",
                         "example": "1",
                         "nullable": "true"
+                    }
+                },
+                "type": "object"
+            },
+            "BlogDetailResource": {
+                "title": "Blog detail json response",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "slug": {
+                        "type": "string"
+                    },
+                    "thumbnail_image": {
+                        "type": "string"
+                    },
+                    "cover_image": {
+                        "type": "string"
+                    },
+                    "sort_order": {
+                        "type": "integer"
+                    },
+                    "creator": {
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "updater": {
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TagResource"
+                        }
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
                     }
                 },
                 "type": "object"
