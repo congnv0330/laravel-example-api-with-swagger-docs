@@ -458,6 +458,48 @@
                 ]
             }
         },
+        "/api/slug/{slug}": {
+            "get": {
+                "tags": [
+                    "Slug"
+                ],
+                "summary": "Get blog or tag",
+                "description": "Get blog or tag by slug",
+                "operationId": "ac7d419141a4833c1197764f38ebde0a",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get blog or tag success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/TagResource"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/BlogDetailResource"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Blog or tag does not exist"
+                    }
+                }
+            }
+        },
         "/api/tags": {
             "get": {
                 "tags": [

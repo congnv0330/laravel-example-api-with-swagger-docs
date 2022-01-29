@@ -16,7 +16,7 @@ class Slug extends Model
         'reference_type',
     ];
 
-    public function sluggable(): MorphTo
+    public function reference(): MorphTo
     {
         return $this->morphTo();
     }

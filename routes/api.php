@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\SlugController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,8 @@ Route::post('login', [AuthenticatedController::class, 'login']);
 Route::post('forgot-password', [PasswordResetLinkController::class, 'sendResetLink']);
 
 Route::post('reset-password', [NewPasswordController::class, 'update']);
+
+Route::get('slug/{slug}', [SlugController::class, 'show']);
 
 Route::get('tag/{tag}/blogs', [TagController::class, 'blogs']);
 Route::get('tag/{tag}', [TagController::class, 'show']);
