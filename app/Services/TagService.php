@@ -52,7 +52,9 @@ class TagService
     {
         $tag = Tag::create($request->only(['name', 'sort_order']));
 
-        $slug = generate_slug($request->filled('slug') ? $request->post('slug') : $tag->name);
+        $slug = $request->filled('slug')
+            ? $request->post('slug')
+            : generate_slug($tag->name);
 
         $tag->slug()->create(['value' => $slug]);
 
@@ -64,7 +66,10 @@ class TagService
         $tag->fill($request->only('name', 'sort_order'));
 
         if ($tag->isDirty('name')) {
-            $slug = generate_slug($request->filled('slug') ? $request->post('slug') : $tag->name);
+            $slug = $request->filled('slug')
+                ? $request->post('slug')
+                : generate_slug($tag->name);
+
             $tag->slug()->update(['value' => $slug]);
         }
 
